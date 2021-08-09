@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using MvcMovie.Data;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using MvcMovie.Core.IConfiguration;
 
 namespace MvcMovie
 {
@@ -27,6 +28,10 @@ namespace MvcMovie
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Adding mapper
+            services.AddAutoMapper(typeof(Startup));
+            // Adding UnitOfWork
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
 
             services.AddDbContext<MvcMovieContext>(options =>
